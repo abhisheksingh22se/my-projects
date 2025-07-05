@@ -8,6 +8,7 @@ from fastapi.encoders import jsonable_encoder
 app = FastAPI(title="Hospital Patient API")
 
 # ✅ Pydantic model for request validation and response
+# for testing purposes
 class Patient(BaseModel):
     name: str
     age: int
