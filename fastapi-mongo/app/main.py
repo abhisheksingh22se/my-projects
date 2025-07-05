@@ -9,6 +9,7 @@ app = FastAPI(title="Hospital Patient API")
 
 # ✅ Pydantic model for request validation and response
 # for testing purposes
+# testing other thing
 class Patient(BaseModel):
     name: str
     age: int
