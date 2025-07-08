@@ -82,7 +82,7 @@ docker run -d -p 8000:8000 --env-file .env fastapi-mongo
 ## 📦 Requirements
 Install all dependencies:
 
-``bash
+```bash
 pip install -r requirements.txt
 ```
 
