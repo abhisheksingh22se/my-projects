@@ -17,6 +17,7 @@ This is a backend API service for storing and retrieving hospital patient inform
 ---
 
 ## 📁 Project Structure
+```none
 fastapi-mongo/
 │
 ├── app/
@@ -30,6 +31,7 @@ fastapi-mongo/
 ├── Dockerfile
 ├── requirements.txt
 └── README.md
+```
 
 ## 🛠️ Setup Instructions
 
