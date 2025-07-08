@@ -66,7 +66,7 @@ Go to http://localhost:8000/docs for FastAPI Swagger UI
 ## 👨‍💻 About Me
 I'm a Computer Science Master's graduate, blockchain researcher, and aspiring DevOps engineer with hands-on projects in backend development and cloud-native deployments.
 
-🔗 [LinkedIn](https://www.linkedin.com/in/abhisheksingh22se) • 📧 [abhisheksingh22se@gmail.com](mailto:abhisheksingh22se@gmail.com) • 🛠 [DevOps Roadmap](https://github.com/abhisheksingh22se/my-project)
+🔗 [LinkedIn](https://www.linkedin.com/in/abhisheksingh22sep) • 📧 [abhisheksingh22se@gmail.com](mailto:abhisheksingh22se@gmail.com) • 🛠 [My-Projects](https://github.com/abhisheksingh22se/my-project)
 
 ---
 
