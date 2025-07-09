@@ -1,39 +1,34 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from typing import List
-from app.database import get_patient_collection  # ✅ Assumes app/database.py is present
-from bson import ObjectId
-from fastapi.encoders import jsonable_encoder
-from typing import List
+from fastapi import FastAPI, Request, Form, Depends
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import RedirectResponse
+from pymongo import MongoClient
+from bson.objectid import ObjectId
+import os
 
-from app.models import PatientCreate, PatientResponse
-from app.database import get_patient_collection
+app = FastAPI()
+templates = Jinja2Templates(directory="app/templates")
 
-app = FastAPI(title="Hospital Patient API")
-
-# ✅ Pydantic model for request validation and response
-# for testing purposes
-# testing other thing
-class Patient(BaseModel):
-    name: str
-    age: int
-    gender: str
-    condition: str
+# Connect to MongoDB
+client = MongoClient(os.getenv("MONGODB_URL", "mongodb://admin:password@mongodb:27017/"))
+db = client.hospital
+patients_collection = db.patients
 
 @app.get("/")
-def home():
-    return {"message": "Welcome to the Hospital API"}
+def read_root(request: Request):
+    patients = list(patients_collection.find())
+    return templates.TemplateResponse("index.html", {"request": request, "patients": patients})
 
-@app.post("/patients", response_model=PatientResponse)
-def create_patient(patient: PatientCreate):
-    collection = get_patient_collection()
-    patient_dict = jsonable_encoder(patient)
-    result = collection.insert_one(patient_dict)
-    created_patient = collection.find_one({"_id": result.inserted_id})
-    return created_patient  # Will be serialized properly using PatientResponse
+@app.get("/add")
+def add_patient_form(request: Request):
+    return templates.TemplateResponse("add-patient.html", {"request": request})
 
-@app.get("/patients", response_model=List[PatientResponse])
-def get_patients():
-    collection = get_patient_collection()
-    patients = list(collection.find())
-    return patients
+@app.post("/add")
+def add_patient(name: str = Form(...), age: int = Form(...), disease: str = Form(...), gender: str = Form(...), condition: str = Form(...)):
+    patients_collection.insert_one({
+        "name": name,
+        "age": age,
+        "gender": gender,
+        "condition": condition,
+        "disease": disease
+    })
+    return RedirectResponse("/", status_code=302)

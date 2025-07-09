@@ -1,6 +1,6 @@
 # 🏥 FastAPI MongoDB - Hospital Patient API
 
-This is a backend API service for storing and retrieving hospital patient information using **FastAPI** and **MongoDB**. It is containerized with **Docker**, supports environment-based configuration, and is CI/CD-ready for deployment in cloud platforms like AWS.
+A simple CRUD application using **FastAPI** with **MongoDB** as the backend database, containerized using **Docker** and orchestrated with **Docker Compose**. Includes a minimal UI for layman access and optional integration with **Mongo Express**.
 
 ---
 
@@ -10,25 +10,29 @@ This is a backend API service for storing and retrieving hospital patient inform
 - Built with FastAPI for high-performance REST APIs
 - MongoDB for document-based data storage
 - Uses Pydantic v2 for data validation
+- Minimal frontend using Jinja2 templating
+- Mongo Express for GUI-based MongoDB visualization
+- Docker Compose for multi-container orchestration
+- Persistent data storage using Docker volumes
 - Environment variable support using `.env`
-- Fully containerized using Docker
-- Ready for DevOps workflows and CI/CD
+- Fully containerized and CI/CD ready
 
 ---
 
 ## 📁 Project Structure
-```none
+```text
 fastapi-mongo/
-│
 ├── app/
-│ ├── init.py
-│ ├── main.py # FastAPI app routes
-│ ├── models.py # Pydantic models
-│ ├── database.py # MongoDB connection
-│
-├── .env # MongoDB connection string
+│   ├── __init__.py
+│   ├── main.py               # FastAPI app routes
+│   ├── models.py             # Pydantic models
+│   ├── database.py           # MongoDB connection
+│   ├── templates/            # HTML templates (e.g., index.html)
+│   ├── static/               # (Optional) CSS/JS assets
+│   └── .env                  # MongoDB connection string
 ├── .gitignore
 ├── Dockerfile
+├── docker-compose.yml
 ├── requirements.txt
 └── README.md
 ```
@@ -45,7 +49,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload 
 ```
-Visit: http://127.0.0.1:8000
+Visit: http://localhost:8000
 
 
 ## 🧪 API Endpoints
@@ -64,24 +68,38 @@ Use Swagger UI to interact with the API:
 ## 🔐 Environment Variables
 
 Create a `.env` file in the root directory:
-MONGO_URL=mongodb://admin:password@localhost:27017
-
+```text
+MONGO_URL=mongodb://admin:password@mongodb:27017/
+MONGO_DB=hospital
+```
 Update this to match your MongoDB connection string — whether it's local, in Docker, or hosted.
 
 ---
 
-## 🐳 Docker Usage
+## 🐳 Docker Compose Setup
 
-### Build and Run
-
+### Step 1: Create `.env` file
+Inside fastapi-mongo/.env:
 ```bash
-docker build -t fastapi-mongo .
-docker run -d -p 8000:8000 --env-file .env fastapi-mongo
+MONGO_URL=mongodb://admin:password@mongodb:27017/
+MONGO_DB=hospital
 ```
+
+### Step 2: Build and Run
+```bash
+docker-compose up --build
+```
+* FastAPI: http://localhost:8000
+* Mongo Express: http://localhost:8081
+
+### Step 3: Tear Down (Optional)
+```bash
+docker-compose down -v
+```
+This will also remove persistent MongoDB data stored in Docker volume.
 
 ## 📦 Requirements
 Install all dependencies:
-
 ```bash
 pip install -r requirements.txt
 ```
@@ -90,7 +108,17 @@ pip install -r requirements.txt
 
 FastAPI – API framework
 MongoDB – NoSQL database
+Mongo Express – Web GUI for MongoDB
 Uvicorn – ASGI server
 Pydantic v2 – Data validation
 Docker – Containerization
+Docker Compose – Multi-container orchestration
+Jinja2 – Templating for minimal UI
 python-dotenv – Environment variable management
+
+## 🧠 Future Improvements
+* Add form validation in UI
+* Implement update/delete routes
+* Add authentication support
+* Deploy to cloud (AWS EC2/ECS or Azure)
+

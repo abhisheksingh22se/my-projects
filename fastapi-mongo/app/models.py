@@ -31,7 +31,7 @@ class PatientBase(BaseModel):
 
 # ✅ Model for incoming data (POST request)
 class PatientCreate(PatientBase):
-    pass
+    name: str
 
 
 # ✅ Model for data returned to the client (includes MongoDB _id)
