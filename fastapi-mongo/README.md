@@ -37,6 +37,8 @@ fastapi-mongo/
 └── README.md
 ```
 
+---
+
 ## 🛠️ Setup Instructions
 
 ### 🔧 Local Setup (With Virtual Environment)
@@ -51,6 +53,7 @@ uvicorn app.main:app --reload
 ```
 Visit: http://localhost:8000
 
+---
 
 ## 🧪 API Endpoints
 
@@ -98,11 +101,14 @@ docker-compose down -v
 ```
 This will also remove persistent MongoDB data stored in Docker volume.
 
+---
+
 ## 📦 Requirements
 Install all dependencies:
 ```bash
 pip install -r requirements.txt
 ```
+---
 
 ## 🧰 Tech Stack
 
@@ -115,6 +121,8 @@ Docker – Containerization
 Docker Compose – Multi-container orchestration
 Jinja2 – Templating for minimal UI
 python-dotenv – Environment variable management
+
+---
 
 ## 🧠 Future Improvements
 * Add form validation in UI
